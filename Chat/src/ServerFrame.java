@@ -48,8 +48,9 @@ public class ServerFrame extends JFrame implements ActionListener, WindowListene
 		
 		contentPane.add(scrollPane);
 		textArea.setEditable(false);
-		textArea.setEnabled(false);
-		
+		textArea.setEnabled(true);
+		textArea.setForeground(Color.BLACK);
+
 		scrollPane.setViewportView(textArea);
 		scrollPane.setColumnHeaderView(lblChat);
 		

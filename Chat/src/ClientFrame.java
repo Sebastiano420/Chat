@@ -250,7 +250,7 @@ public class ClientFrame extends JFrame implements ActionListener
 				}
 				for(int i=0;i<m.size();i++)
 				{
-					if(u.equals(m.getElementAt(i)))
+					if(u.equals(m.getElementAt(i))==true)
 					{
 						JOptionPane.showMessageDialog(null, "Username già utilizzato!", "ERRORE", JOptionPane.ERROR_MESSAGE);
 						return;
