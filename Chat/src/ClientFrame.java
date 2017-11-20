@@ -205,23 +205,21 @@ public class ClientFrame extends JFrame implements ActionListener
 				{
 					c.inviaMessaggio(new Messaggio(Messaggio.MESSAGGIO,s));
 					AudioInputStream audioInputStream = null;
+					 Clip clip = null;
 					try {
 						audioInputStream = AudioSystem.getAudioInputStream(new File("suonooo.wav").getAbsoluteFile());
 					} catch (UnsupportedAudioFileException | IOException e2) {
-						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
-			        Clip clip = null;
+			       
 					try {
 						clip = AudioSystem.getClip();
 					} catch (LineUnavailableException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 			        try {
 						clip.open(audioInputStream);
 					} catch (LineUnavailableException | IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 			        clip.start();
@@ -239,7 +237,7 @@ public class ClientFrame extends JFrame implements ActionListener
 				String u=username.getText();
 				int p=isIntOrNot(porta.getText());
 				String ip=ip1.getSelectedIndex()+"."+ip2.getSelectedIndex()+"."+ip3.getSelectedIndex()+"."+ip4.getSelectedIndex();
-				String inet=u+"------>["+ip+"]\n";
+				String inet=u;
 				if(u.length()<1)
 				{
 					JOptionPane.showMessageDialog(null, "Inserire un username!", "ERRORE", JOptionPane.ERROR_MESSAGE);

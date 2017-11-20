@@ -138,6 +138,9 @@ public class ServerFrame extends JFrame implements ActionListener, WindowListene
 			if(y!=-1)
 			{
 				m.remove(y);
+				server.getCt().get(y).close();
+				server.remove(y);
+				
 			}
 			else
 			{

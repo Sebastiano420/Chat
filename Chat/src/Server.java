@@ -10,7 +10,6 @@ public class Server
 	private SimpleDateFormat data;
 	private int porta;
 	private boolean running;
-	private static int uid=0;
 	
 	public Server(int porta,ServerFrame sf)
 	{
@@ -73,7 +72,7 @@ public class Server
 		
 		try
 		{
-			new Socket("127.0.0.1",porta);
+			new Socket("192.168.4.8",porta);
 		}
 		catch(Exception e) {}
 	}
@@ -98,14 +97,8 @@ public class Server
 	}
 	synchronized void remove(int id)
 	{
-		for(int i=0;i<ct.size();++i)
-		{
-			if(ct.get(i).id==id)
-			{
-				ct.remove(i);
-				return;
-			}
-		}
+		ct.remove(id);
+		return;
 	}
 	class ClientThread extends Thread
 	{
@@ -115,11 +108,9 @@ public class Server
 		String username;
 		Messaggio m;
 		String data;
-		int id;
 		
 		ClientThread(Socket socket)
 		{
-			this.id=uid;
 			this.socket=socket;
 			
 			try
@@ -162,19 +153,24 @@ public class Server
 				switch(m.getTipo())
 				{
 					case Messaggio.MESSAGGIO: broadcast(username+": "+msg);
-						 uid++;
 						 break;
 					case Messaggio.LOGOUT:  stampa(username+" ha lasciato la chat. \n");
+						 close();
+					     for(int i=0;i<ct.size();i++)
+					     {	
+					    	 if(ct.get(i).username.equals(username)==true)
+					    	 {
+					    		 remove(i);
+					    		 sf.getM().remove(i);
+					    	 }
+					     }
 						 running=false;
-						 uid--;
 						 break; 
 				}
 			}
-			remove(id);
-			close();
-			sf.getM().remove(id);
+			
 		}
-		private void close()
+		public void close()
 		{
 			try 
 			{
@@ -217,6 +213,4 @@ public class Server
 	public void setCt(ArrayList<ClientThread> ct) {
 		this.ct = ct;
 	}
-	
-	
 }
