@@ -248,7 +248,14 @@ public class ClientFrame extends JFrame implements ActionListener
 					JOptionPane.showMessageDialog(null, "Inserire una porta valida!", "ERRORE", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-			
+				for(int i=0;i<m.size();i++)
+				{
+					if(u.equals(m.getElementAt(i)))
+					{
+						JOptionPane.showMessageDialog(null, "Username già utilizzato!", "ERRORE", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+				}
 				c=new Client(ip,p,u,this);
 			
 				if(c.start()==false)
